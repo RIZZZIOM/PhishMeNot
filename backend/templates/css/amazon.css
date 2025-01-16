@@ -1,0 +1,170 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Amazon Ember",Arial,sans-serif;
+}
+
+/* Main container */
+#main-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Logo */
+#logo-container img {
+    width: 120px;
+}
+
+/* Form wrapper */
+#form-wrapper {
+    border: 1px solid #e4dfdf;
+    border-radius: 8px;
+    width: 360px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+#form-container {
+    padding: 20px;
+}
+
+#signin-header {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Form group */
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 100;
+    margin-bottom: 8px;
+}
+
+.input-box {
+    width: 100%;
+    padding: 10px; /* Adds padding inside the input box */
+    border: 1px solid #d3c2c2;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+/* Button */
+#continue-button {
+    background-color: #ffb700;
+    border: 0px;
+    border-radius: 50px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    
+}
+
+#continue-button:hover {
+    background-color: #e9ad15;
+}
+
+/* Terms */
+.terms {
+    font-size: 12px;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.terms a {
+    color: #0066c0;
+    text-decoration: none;
+}
+
+/* Help list */
+#help-list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+#help-list a {
+    color: #0066c0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Divider */
+.divider {
+    border: 0.5px solid #ddd;
+    margin: 20px 0;
+}
+
+/* Business section */
+#business-header {
+    font-size: 14px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+#business-link {
+    color: #0066c0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* New account section */
+#new-account-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.new-to-amazon {
+    font-size: 14px;
+}
+
+/* Create account button */
+#create-account-button {
+    background-color: transparent;
+    border: 1px solid #a8acaf;
+    border-radius: 50px;
+    padding: 10px;
+    font-size: 16px;
+    width: 360px;
+    cursor: pointer;
+}
+
+/* Footer */
+#footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer-divider {
+    border: 0.5px solid #ddd;
+    margin: 10px 0;
+}
+
+#footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#footer-links li {
+    margin: 0 10px;
+}
+
+#footer-links a {
+    color: #0066c0;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.footer-text {
+    font-size: 12px;
+    color: #444;
+}
