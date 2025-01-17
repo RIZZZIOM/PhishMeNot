@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in - Twitch</title>
+    <link rel="stylesheet" href="../css/twitch.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968819.png" alt="Twitch logo">
+            Log in to Twitch
+        </h1>
+        <form>
+            <p>
+                Username
+                <input type="text" id="username-input" required>
+            </p>
+            <p>
+                Password
+                <div class="password-wrapper">
+                    <input type="password" required id="password-input">
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">👁</span>
+                </div>
+            </p>
+            <script>
+                function togglePasswordVisibility() {
+                    const passwordInput = document.getElementById("password-input");
+                    const passwordType = passwordInput.getAttribute("type");
+                    passwordInput.setAttribute("type", passwordType === "password" ? "text" : "password");
+                }
+            </script>
+
+            <a href="https://www.twitch.tv/user/account-recovery" class="trouble-link">Trouble logging in?</a>
+            <button type="submit" id="login-btn" class="login-btn" disabled>Log In</button>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const usernameInput = document.getElementById("username-input");
+                    const passwordInput = document.getElementById("password-input");
+                    const loginButton = document.getElementById("login-btn");
+            
+                    function checkInputs() {
+                        // Enable the button only if both fields are non-empty
+                        if (usernameInput.value.trim() && passwordInput.value.trim()) {
+                            loginButton.disabled = false;
+                        } else {
+                            loginButton.disabled = true;
+                        }
+                    }
+            
+                    // Add event listeners to track input changes
+                    usernameInput.addEventListener("input", checkInputs);
+                    passwordInput.addEventListener("input", checkInputs);
+                });
+            </script>
+            
+            <button type="button" class="Signup-btn">Don't have an account? Sign up</button>
+        </form>
+    </div>
+</body>
+</html>
