@@ -1,0 +1,67 @@
+:root {
+    --font-main: "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial,
+      sans-serif, "Apple Symbols";
+  
+    /* COLORS */
+    --headline-color: oklab(0.963963 -0.000228554 -0.00283051);
+    --form-background: oklab(0.321088 -0.000220731 -0.00934622);
+    --normal-text-color: oklab(0.786807 -0.0025776 -0.0110238);
+    --input-bg: oklab(0.23892 0.000131361 -0.00592163);
+    --input-color: oklab(0.899401 -0.00192499 -0.00481987);
+    --label-color: oklab(0.786807 -0.0025776 -0.0110238);
+    --required-color: rgb(242, 63, 66);
+    --btn-bg: rgb(88, 101, 242);
+    --btn-bg-hover: rgb(71, 82, 196);
+    --wandering-cubes-color: rgb(121, 131, 245);
+    --link-color: oklab(0.700834 -0.0780351 -0.1469);
+  
+    --need-account: oklab(0.686679 -0.00398019 -0.0150182);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  @font-face {
+    font-family: "gg sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../assets/fonts/ggsans/ggsans-normal.woff2) format("woff2");
+  }
+  
+  @font-face {
+    font-family: "gg sans";
+    font-style: normal;
+    font-weight: 500;
+    src: url(../assets/fonts/ggsans/ggsans-medium.woff2) format("woff2");
+  }
+  
+  @font-face {
+    font-family: "gg sans";
+    font-style: normal;
+    font-weight: 600;
+    src: url(../assets/fonts/ggsans/ggsans-semibold.woff2) format("woff2");
+  }
+  
+  @font-face {
+    font-family: "gg sans";
+    font-style: normal;
+    font-weight: 700;
+    src: url(../assets/fonts/ggsans/ggsans-bold.woff2) format("woff2");
+  }
+  
+  .bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hidden {
+    pointer-events: none !important;
+    display: none !important;
+  }
+  
