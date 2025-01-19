@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="../res/google.png" id="logo">
+    <link rel="stylesheet" href="../css/google.css">
+    <title>Google Sign in Accounts</title>
+</head>
+
+<body>
+    <div class="main_container">
+        <div id="content">
+            <!-- Initial Email Input Section -->
+            <div class="inner_container" id="email-section">
+                <img src="../res/google2.png" alt="This is an image" id="inner_logo">
+                <div class="inner_head">
+                    <span id="sign">Sign in</span>
+                    <span id="use">Use your Google Account</span>
+                </div>
+                <div class="email_input">
+                    <input type="text" name="email" id="email" placeholder="Email Or phone">
+                    <button type="button" id="forgot-email">Forgot email?</button>
+                </div>
+                <div class="learnmore">
+                    Not your computer? Use Guest mode to sign in privately.
+                    <a href="#">Learn more about using Guest mode</a>
+                </div>
+                <div class="buttonS">
+                    <div><button id="Create">Create account</button></div>
+                    <div>
+                        <button id="next">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="inner_footer">
+            <div>
+                <select name="language_bar" id="language"><option value="Afrikaans">Afrikaans</option>
+                    <option value="azərbaycan">azərbaycan</option>
+                    <option value="bosanski">bosanski</option>
+                    <option value=" català"> català</option>
+                    <option value=" Čeština"> Čeština</option>
+                    <option value=" Cymraeg"> Cymraeg</option>
+                    <option value="Deutsch">Deutsch</option>
+                    <option value="  Español (España)"> Español (España)</option>
+                    <option value="English (United States)" selected>English (United States)</option>
+                    <option value="  English (United Kingdom)"> English (United Kingdom)</option>
+                    <option value=" Español (Latinoamérica)"> Español (Latinoamérica)</option>
+                    <option value="  euskara"> euskara</option>
+                    <option value="  Filipino"> Filipino</option>
+                    <option value="Français (Canada)">Français (Canada)</option>
+                    <option value=" Français (France)"> Français (France)</option>
+                    <option value="Gaeilge">Gaeilge</option>
+                    <option value="galego">galego</option>
+                    <option value=" íslenska"> íslenska</option>
+                    <option value="Italiano"> Italiano</option>
+                    <option value="Kiswahili">Kiswahili</option>n>
+                    <option value="română">română</option>
+                    <option value=" shqip"> shqip</option>
+                    <option value="Slovenčina">Slovenčina</option>
+                    <option value="кыргызча">кыргызча</option>
+                    <option value=" македонски"> македонски</option>
+                    <option value="Русский">Русский</option>
+                    <option value=" नेपाली"> नेपाली</option>
+                    <option value=" मराठी"> मराठी</option>
+                    <option value=" हिन्दी"> हिन्दी</option>
+                    <option value=" অসমীয়া"> অসমীয়া</option>
+                    <option value=" বাংলা"> বাংলা</option>
+                    <option value="ਪੰਜਾਬੀ">ਪੰਜਾਬੀ</option>
+                    <option value=" ગુજરાતી"> ગુજરાતી</option>
+                    <option value=" ଓଡ଼ିଆ"> ଓଡ଼ିଆ</option>
+                    <option value="中文（香港）">中文（香港）</option>
+                    <option value="繁體中文">繁體中文</option>
+                </select>
+            </div>
+            <div id="footer_links">
+                <a href="#">Help</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle the password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById("typepass");
+            passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+        }
+
+        // Handle 'Next' button click
+        document.getElementById("next").addEventListener("click", function () {
+            const email = document.getElementById("email").value;
+            if (email.trim() === "") {
+                alert("Please enter an email or phone number.");
+                return;
+            }
+
+            // Load the Password Section
+            document.getElementById("content").innerHTML = `
+                <div class="inner_container">
+                    <img src="../res/google2.png" alt="This is an image" id="inner_logo">
+                    <div class="inner_head">
+                        <span id="Welcome">Welcome</span>
+                        <span id="here">${email}</span>
+                    </div>
+                    <div class="email_input">
+                        <input type="password" name="password" placeholder="Enter Your password" id="typepass">
+                        <input type="checkbox" onclick="togglePassword()">
+                        <label for="checkbox"> Show password</label>
+                    </div>
+                    <div class="buttonS">
+                        <div><button id="Create">Forgot email?</button></div>
+                        <div><button id="next">Next</button></div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>
