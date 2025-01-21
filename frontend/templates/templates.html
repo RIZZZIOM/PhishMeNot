@@ -1,1 +1,60 @@
-<!-- direct access to view/select phishing templates -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates</title>
+    <link rel="stylesheet" href="../static/css/templates.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Templates</a></li>
+            <li><a href="#">Campaigns</a></li>
+            <li><a href="#">Results</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- Templates Section -->
+    <header>
+        <h1>Templates</h1>
+        <p>Explore our preloaded phishing templates and preview their content. Templates can be selected during campaign creation.</p>
+    </header>
+
+    <!-- Templates Grid -->
+    <section class="template-grid">
+        <div class="template-card">
+            <h3>Google Login</h3>
+            <p>Mimics a Google account recovery email.</p>
+            <button onclick="previewTemplate('Google Login')">Preview</button>
+        </div>
+        <div class="template-card">
+            <h3>Discord Notification</h3>
+            <p>Mimics a Discord account suspension email.</p>
+            <button onclick="previewTemplate('Discord Notification')">Preview</button>
+        </div>
+        <div class="template-card">
+            <h3>Microsoft Account</h3>
+            <p>Mimics a Microsoft password recovery email.</p>
+            <button onclick="previewTemplate('Microsoft Account')">Preview</button>
+        </div>
+        <div class="template-card">
+            <h3>Twitch Streaming</h3>
+            <p>Mimics a Twitch login notification email.</p>
+            <button onclick="previewTemplate('Twitch Streaming')">Preview</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 rizzziom</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Documentation</a>
+    </footer>
+
+    <script src="../static/js/templates.js"></script>
+</body>
+</html>
