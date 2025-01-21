@@ -1,1 +1,89 @@
-<!-- create / view phishing campaigns -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaigns</title>
+    <link rel="stylesheet" href="../static/css/campaigns.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./campaigns.html">Campaigns</a></li>
+            <li><a href="./results.html">Results</a></li>
+            <li><a href="./settings.html">Settings</a></li>
+            <li><a href="./documentation.html">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Campaigns</h1>
+        <p>Create and manage your phishing campaigns using the form below.</p>
+    </header>
+
+    <!-- Campaign Creation Form -->
+    <section class="campaign-form-section">
+        <h2>Create New Campaign</h2>
+        <form id="campaignForm">
+            <!-- Template Selection -->
+            <div class="form-group">
+                <label for="template">Select Template:</label>
+                <select id="template" name="template" required>
+                    <option value="" disabled selected>Select a template</option>
+                    <option value="google">Google Login</option>
+                    <option value="discord">Discord Notification</option>
+                    <option value="microsoft">Microsoft Account</option>
+                    <option value="twitch">Twitch Streaming</option>
+                </select>
+            </div>
+
+            <!-- Campaign Details -->
+            <div class="form-group">
+                <label for="campaignName">Campaign Name:</label>
+                <input type="text" id="campaignName" name="campaignName" placeholder="Enter campaign name" required>
+            </div>
+            <div class="form-group">
+                <label for="campaignDescription">Campaign Description:</label>
+                <textarea id="campaignDescription" name="campaignDescription" placeholder="Enter campaign description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="senderEmail">Sender Email:</label>
+                <input type="email" id="senderEmail" name="senderEmail" placeholder="e.g., sender@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="emailTopic">Email Topic:</label>
+                <input type="text" id="emailTopic" name="emailTopic" placeholder="Enter email topic" required>
+            </div>
+            <div class="form-group">
+                <label for="emailBody">Email Body:</label>
+                <textarea id="emailBody" name="emailBody" placeholder="Enter email body" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="ccEmails">CC (Optional):</label>
+                <input type="email" id="ccEmails" name="ccEmails" placeholder="Add CC">
+            </div>
+
+            <!-- Target Emails -->
+            <div class="form-group">
+                <label for="targetEmails">Target Emails:</label>
+                <textarea id="targetEmails" name="targetEmails" placeholder="Enter target emails, one per line" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Send Campaign</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 rizzziom</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Documentation</a>
+    </footer>
+
+    <script src="../static/js/campaigns.js"></script>
+</body>
+</html>
