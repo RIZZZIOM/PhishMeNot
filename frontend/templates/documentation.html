@@ -1,1 +1,113 @@
-<!-- quick access to user guides or FAQs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../static/css/documentation.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./campaigns.html">Campaigns</a></li>
+            <li><a href="./results.html">Results</a></li>
+            <li><a href="./settings.html">Settings</a></li>
+            <li><a href="./documentation.html">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Documentation</h1>
+        <p>Learn how to use PHISH ME NOT with detailed guides, FAQs, and troubleshooting tips.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="documentation">
+        <!-- Table of Contents -->
+        <aside class="table-of-contents">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#getting-started" onclick="scrollToSection('getting-started')">Getting Started</a></li>
+                <li><a href="#creating-campaign" onclick="scrollToSection('creating-campaign')">Creating a Campaign</a></li>
+                <li><a href="#configuring-smtp" onclick="scrollToSection('configuring-smtp')">Configuring SMTP</a></li>
+                <li><a href="#managing-results" onclick="scrollToSection('managing-results')">Managing Results</a></li>
+                <li><a href="#troubleshooting" onclick="scrollToSection('troubleshooting')">Troubleshooting</a></li>
+                <li><a href="#faqs" onclick="scrollToSection('faqs')">FAQs</a></li>
+            </ul>
+        </aside>
+
+        <!-- Documentation Content -->
+        <section class="doc-content">
+            <article id="getting-started">
+                <h2>Getting Started</h2>
+                <p>Welcome to PHISH ME NOT! Follow these steps to set up and get started:</p>
+                <ol>
+                    <li>Install the tool.</li>
+                    <li>Configure SMTP settings on the Settings page.</li>
+                    <li>Create your first phishing campaign.</li>
+                </ol>
+            </article>
+
+            <article id="creating-campaign">
+                <h2>Creating a Campaign</h2>
+                <p>Steps to create a new phishing campaign:</p>
+                <ul>
+                    <li>Go to the Campaigns page.</li>
+                    <li>Select a template and fill in campaign details.</li>
+                    <li>Add target email addresses and launch the campaign.</li>
+                </ul>
+            </article>
+
+            <article id="configuring-smtp">
+                <h2>Configuring SMTP</h2>
+                <p>To send phishing emails, you need to configure SMTP settings:</p>
+                <ol>
+                    <li>Go to the Settings page.</li>
+                    <li>Enter your SMTP server details, including server address, port, username, and password.</li>
+                    <li>Test the connection to ensure it's working.</li>
+                </ol>
+            </article>
+
+            <article id="managing-results">
+                <h2>Managing Results</h2>
+                <p>Analyze your campaigns on the Results page:</p>
+                <ul>
+                    <li>View the number of emails sent, opened, and clicked.</li>
+                    <li>Check captured credentials and export results if needed.</li>
+                </ul>
+            </article>
+
+            <article id="troubleshooting">
+                <h2>Troubleshooting</h2>
+                <p>Common issues and their solutions:</p>
+                <ul>
+                    <li>Ensure SMTP settings are correct if emails fail to send.</li>
+                    <li>Check the internet connection for connectivity issues.</li>
+                    <li>Contact support for unresolved issues.</li>
+                </ul>
+            </article>
+
+            <article id="faqs">
+                <h2>FAQs</h2>
+                <p>Answers to frequently asked questions:</p>
+                <ul>
+                    <li><strong>Q:</strong> Can I add custom templates? <strong>A:</strong> Templates are preloaded and cannot be modified.</li>
+                    <li><strong>Q:</strong> How do I test my SMTP settings? <strong>A:</strong> Use the "Test Connection" button on the Settings page.</li>
+                </ul>
+            </article>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 rizzziom</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Contact Support</a>
+    </footer>
+
+    <script src="../static/js/documentation.js"></script>
+</body>
+</html>
