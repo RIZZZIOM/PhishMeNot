@@ -1,1 +1,84 @@
-<!-- settings page for users to create new username, password -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="../static/css/settings.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="#">Campaigns</a></li>
+            <li><a href="#">Results</a></li>
+            <li><a href="./settings.html">Settings</a></li>
+            <li><a href="#">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Settings</h1>
+        <p>Configure SMTP settings, port forwarding, and email masking options below.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- SMTP Configuration -->
+        <section class="settings-section">
+            <h2>SMTP Configuration</h2>
+            <label for="smtpServer">SMTP Server:</label>
+            <input type="text" id="smtpServer" placeholder="e.g., smtp.example.com" required>
+            <label for="smtpPort">SMTP Port:</label>
+            <input type="number" id="smtpPort" placeholder="e.g., 587" required>
+            <label for="smtpUsername">Username:</label>
+            <input type="text" id="smtpUsername" placeholder="SMTP Username" required>
+            <label for="smtpPassword">Password:</label>
+            <input type="password" id="smtpPassword" placeholder="SMTP Password" required>
+            <label for="smtpEncryption">Encryption:</label>
+            <select id="smtpEncryption">
+                <option value="none">None</option>
+                <option value="ssl">SSL</option>
+                <option value="tls">TLS</option>
+            </select>
+        </section>
+
+        <!-- Port Forwarding -->
+        <section class="settings-section">
+            <h2>Port Forwarding</h2>
+            <label for="portForwardingService">Select Service:</label>
+            <select id="portForwardingService">
+                <option value="ngrok">Ngrok</option>
+                <option value="localhost">Localhost</option>
+                <option value="custom">Custom Service</option>
+            </select>
+            <label for="portForwardingUrl">Forwarding URL:</label>
+            <input type="url" id="portForwardingUrl" placeholder="e.g., https://yourdomain.ngrok.io">
+        </section>
+
+        <!-- Email Masking -->
+        <section class="settings-section">
+            <h2>Email Masking</h2>
+            <label for="enableMasking">Enable Email Masking:</label>
+            <input type="checkbox" id="enableMasking">
+            <label for="maskingDomain">Masking Domain:</label>
+            <input type="text" id="maskingDomain" placeholder="e.g., example.com">
+            <p class="info-text">* Masking replaces the sender's domain with the specified masking domain.</p>
+        </section>
+
+        <!-- Save Button -->
+        <button id="saveSettings">Save Changes</button>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 rizzziom</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Documentation</a>
+    </footer>
+
+    <script src="../static/js/settings.js"></script>
+</body>
+</html>
