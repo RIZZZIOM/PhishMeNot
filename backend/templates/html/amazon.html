@@ -11,6 +11,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Reem+Kufi+Fun&family=Roboto+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="https://www.amazon.in/favicon.ico" type="image/x-icon">
+    <script>
+        function showPasswordPage(event) {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('email-input').value;
+            const formContainer = document.getElementById('form-container');
+            const newAccountSection = document.getElementById('new-account-section');
+
+            // Hide the "New to Amazon" section
+            newAccountSection.style.display = 'none';
+
+            formContainer.innerHTML = `
+                <h1 id="signin-header">Sign in</h1>
+                <form id="signin-form">
+                    <p>${emailInput} <a href="#" id="change-email">Change</a></p>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password-input" class="input-box">
+                    </div>
+                    <button type="submit" id="signin-button">Sign in</button>
+                    <ul id="help-list">
+                        <li><a href="#">Forgot password?</a></li>
+                    </ul>
+                </form>
+            `;
+
+            const changeEmailLink = document.getElementById('change-email');
+            changeEmailLink.addEventListener('click', () => {
+                location.reload(); // Reload to allow user to change email
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('signin-form');
+            form.addEventListener('submit', showPasswordPage);
+        });
+    </script>
 </head>
 <body>
     <div id="main-container">
