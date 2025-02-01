@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campaigns</title>
-    <link rel="stylesheet" href="../static/css/campaigns.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav>
         <ul>
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./templates.html">Templates</a></li>
-            <li><a href="./campaigns.html">Campaigns</a></li>
-            <li><a href="./results.html">Results</a></li>
-            <li><a href="./settings.html">Settings</a></li>
-            <li><a href="./documentation.html">Documentation</a></li>
+            <li><a href="{{ url_for('homePage') }}">Home</a></li>
+            <li><a href="{{ url_for('tempPage') }}">Templates</a></li>
+            <li><a href="{{ url_for('campPage') }}">Campaigns</a></li>
+            <li><a href="{{ url_for('resPage') }}">Results</a></li>
+            <li><a href="{{ url_for('settingsPage') }}">Settings</a></li>
+            <li><a href="{{ url_for('docPage') }}">Documentation</a></li>
         </ul>
     </nav>
 
