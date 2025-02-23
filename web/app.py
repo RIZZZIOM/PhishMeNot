@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for
-import os
+from flask import Flask, render_template, jsonify
+from config import get_default_smtp
 
 app = Flask(__name__)
 
@@ -32,5 +32,10 @@ def docPage():
 def resPage():
     print("\nAccessed results page\n")
     return render_template("results.html")
+
+@app.route("/api/default-smtp", methods=["GET"])
+def get_smtp_settings():
+    smtp_settings = get_default_smtp()  # Load settings from config.yaml
+    return jsonify(smtp_settings)
 
 app.run(debug=True)
