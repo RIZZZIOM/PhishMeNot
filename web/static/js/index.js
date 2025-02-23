@@ -9,6 +9,5 @@ function viewResults() {
 }
 
 function viewTemplates() {
-    alert("Redirecting to 'Templates' page...");
-    // Add redirection logic here
+    window.location.href = "/templates";
 }
