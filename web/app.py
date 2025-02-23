@@ -1,16 +1,24 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory, url_for, abort
 from config import get_smtp_settings, get_port_forwarding_settings, save_user_settings
 import smtplib
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 import os
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
-# Define a separate Jinja2 environment for phishing templates
-PHISHING_TEMPLATE_FOLDER = os.path.join(os.path.dirname(__file__), "backend", "templates")
-phishing_env = Environment(loader=FileSystemLoader(PHISHING_TEMPLATE_FOLDER))
+
+# Paths for phishing templates and static files
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PHISHING_TEMPLATE_FOLDER = os.path.join(BASE_DIR, "backend", "templates")
+PHISHING_STATIC_FOLDER = os.path.join(BASE_DIR, "backend", "static")
+
+# Create a Jinja2 environment for phishing templates
+phishing_env = Environment(
+    loader=FileSystemLoader(PHISHING_TEMPLATE_FOLDER),
+    autoescape=select_autoescape(['html', 'xml'])
+)
 
 @app.route('/')
 def homePage():
@@ -61,19 +69,34 @@ def update_settings():
 
 @app.route("/phish/<template_name>")
 def serve_phishing_page(template_name):
+    """ Serve phishing HTML templates dynamically """
     template_file = f"{template_name}.html"
-
-    # Ensure phishing template exists
     template_path = os.path.join(PHISHING_TEMPLATE_FOLDER, template_file)
-    if not os.path.exists(template_path):
-        return "Template not found", 404
 
-    # Render phishing template using the separate Jinja environment
+    # Ensure the phishing template exists
+    if not os.path.exists(template_path):
+        print(f"❌ Error: Phishing template '{template_file}' not found in '{PHISHING_TEMPLATE_FOLDER}'")
+        abort(404, description="Template not found")
+
+    # Render phishing template with `url_for` function
     template = phishing_env.get_template(template_file)
-    return template.render()
+    return template.render(url_for=url_for)
+
+# Serve static files (CSS, JS, Images) for phishing templates
+@app.route('/phish/static/<path:filename>')
+def serve_phishing_static(filename):
+    """ Serve static files for phishing templates """
+    file_path = os.path.join(PHISHING_STATIC_FOLDER, filename)
+
+    if not os.path.exists(file_path):
+        print(f"❌ Error: Static file '{filename}' not found in '{PHISHING_STATIC_FOLDER}'")
+        abort(404, description="Static file not found")
+
+    return send_from_directory(PHISHING_STATIC_FOLDER, filename)
 
 @app.route("/api/host-template", methods=["POST"])
 def host_template():
+    """ API to host phishing templates dynamically """
     try:
         data = request.json
         template_name = data.get("template", "").strip()
@@ -81,14 +104,14 @@ def host_template():
         if not template_name:
             return jsonify({"error": "Template name is required"}), 400
 
-        # Generate the phishing link
+        # Generate phishing link
         phishing_link = f"http://127.0.0.1:5000/phish/{template_name}"
 
         return jsonify({"message": "Template hosted successfully!", "link": phishing_link})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+    
 # API Endpoint to Send Campaign Emails
 @app.route("/api/send-campaign", methods=["POST"])
 def send_campaign():
