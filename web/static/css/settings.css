@@ -1,16 +1,13 @@
+/* Reset and Layout */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-main {
-    flex: 1;
-}
-
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -62,13 +59,24 @@ header p {
     margin-top: 10px;
 }
 
+/* Center and Responsive Settings Form */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
 /* Settings Sections */
 .settings-section {
     background-color: white;
-    margin: 20px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px; /* Prevents the form from being too wide */
 }
 
 .settings-section h2 {
@@ -76,10 +84,11 @@ header p {
     color: #0073e6;
 }
 
+/* Form Fields */
 label {
     display: block;
-    margin-top: 10px;
     font-weight: bold;
+    margin-top: 10px;
 }
 
 input, select {
@@ -88,8 +97,11 @@ input, select {
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
+/* Additional Info Text */
 .info-text {
     font-size: 0.9em;
     color: #666;
@@ -98,8 +110,8 @@ input, select {
 
 /* Save Button */
 button#saveSettings {
-    display: block;
     width: 100%;
+    max-width: 200px;
     padding: 10px;
     background-color: #0073e6;
     color: white;
@@ -108,10 +120,35 @@ button#saveSettings {
     font-size: 1em;
     cursor: pointer;
     margin-top: 20px;
+    text-align: center;
 }
 
 button#saveSettings:hover {
     background-color: #005bb5;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .settings-section {
+        width: 95%;
+        padding: 15px;
+    }
+
+    button#saveSettings {
+        width: 100%;
+    }
+}
+
+/* Align checkbox next to label */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.checkbox-group label {
+    font-weight: bold;
 }
 
 /* Footer */
@@ -119,7 +156,6 @@ footer {
     text-align: center;
     background-color: #f1f1f1;
     padding: 10px 0;
-    margin-top: auto;
     font-size: 0.9em;
     color: #666;
 }

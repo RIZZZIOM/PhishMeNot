@@ -62,8 +62,10 @@
         <!-- Email Masking -->
         <section class="settings-section">
             <h2>Email Masking</h2>
-            <label for="enableMasking">Enable Email Masking:</label>
-            <input type="checkbox" id="enableMasking">
+            <div class="checkbox-group">
+                <label for="enableMasking">Enable Email Masking:</label>
+                <input type="checkbox" id="enableMasking">
+            </div>
             <label for="maskingDomain">Masking Domain:</label>
             <input type="text" id="maskingDomain" placeholder="e.g., example.com">
             <p class="info-text">* Masking replaces the sender's domain with the specified masking domain.</p>
