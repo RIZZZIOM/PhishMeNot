@@ -173,4 +173,4 @@ def send_campaign():
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
-app.run(debug=True)
+app.run(host='0.0.0.0', debug=True)
