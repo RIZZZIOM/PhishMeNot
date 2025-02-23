@@ -139,18 +139,6 @@ button#saveSettings:hover {
     }
 }
 
-/* Align checkbox next to label */
-.checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap;
-}
-
-.checkbox-group label {
-    font-weight: bold;
-}
-
 /* Footer */
 footer {
     text-align: center;
