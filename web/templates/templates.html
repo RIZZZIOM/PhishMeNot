@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Templates</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templates.css')}}">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -28,24 +28,44 @@
     <!-- Templates Grid -->
     <section class="template-grid">
         <div class="template-card">
+            <h3>Amazon Login</h3>
+            <p>Mimics an Amazon account signin page</p>
+            <button onclick="previewTemplate('amazon_page.png')">Preview</button>
+        </div>
+        <div class="template-card">
             <h3>Google Login</h3>
-            <p>Mimics a Google account recovery email.</p>
-            <button onclick="previewTemplate('Google Login')">Preview</button>
+            <p>Mimics a Google account signin page</p>
+            <button onclick="previewTemplate('google_page.png')">Preview</button>
         </div>
         <div class="template-card">
-            <h3>Discord Notification</h3>
-            <p>Mimics a Discord account suspension email.</p>
-            <button onclick="previewTemplate('Discord Notification')">Preview</button>
+            <h3>Microsoft Login</h3>
+            <p>Mimics a Microsoft account signin page</p>
+            <button onclick="previewTemplate('microsoft_page.png')">Preview</button>
         </div>
         <div class="template-card">
-            <h3>Microsoft Account</h3>
-            <p>Mimics a Microsoft password recovery email.</p>
-            <button onclick="previewTemplate('Microsoft Account')">Preview</button>
+            <h3>Discord Login</h3>
+            <p>Mimics a Discord account signin page</p>
+            <button onclick="previewTemplate('discord_page.png')">Preview</button>
         </div>
         <div class="template-card">
-            <h3>Twitch Streaming</h3>
-            <p>Mimics a Twitch login notification email.</p>
-            <button onclick="previewTemplate('Twitch Streaming')">Preview</button>
+            <h3>Facebook Login</h3>
+            <p>Mimics a Facebook account signin page</p>
+            <button onclick="previewTemplate('facebook_page.png')">Preview</button>
+        </div>
+        <div class="template-card">
+            <h3>Github Login</h3>
+            <p>Mimics a Github account signin page</p>
+            <button onclick="previewTemplate('github_page.png')">Preview</button>
+        </div>
+        <div class="template-card">
+            <h3>Instagram Login</h3>
+            <p>Mimics an Instagram account signin page</p>
+            <button onclick="previewTemplate('instagram_page.png')">Preview</button>
+        </div>
+        <div class="template-card">
+            <h3>Twitch Login</h3>
+            <p>Mimics a Twitch account signin page</p>
+            <button onclick="previewTemplate('twitch_page.png')">Preview</button>
         </div>
     </section>
 
@@ -55,6 +75,6 @@
         <a href="#">Privacy Policy</a> | <a href="#">Documentation</a>
     </footer>
 
-    <script src="../static/js/templates.js"></script>
+    <script src="{{ url_for('static', filename='js/templates.js') }}"></script>
 </body>
 </html>
