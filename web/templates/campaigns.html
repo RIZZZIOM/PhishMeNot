@@ -45,6 +45,9 @@
                 </select>
             </div>
 
+            <!-- Hosted Template Link (Will be shown when a template is selected) -->
+            <div id="hostedTemplateLink"></div>
+
             <!-- Campaign Details -->
             <div class="form-group">
                 <label for="campaignName">Campaign Name:</label>
@@ -74,12 +77,11 @@
                 <label for="ccEmails">CC (Optional):</label>
                 <input type="email" id="ccEmails" name="ccEmails" placeholder="Add CC">
             </div>
-
-            <!-- Target Emails -->
             <div class="form-group">
-                <label for="targetEmails">Target Emails:</label>
-                <textarea id="targetEmails" name="targetEmails" placeholder="Enter target emails, one per line" required></textarea>
+                <label for="targetEmail">Target Email:</label>
+                <input type="email" id="targetEmail" name="targetEmail" placeholder="Enter target email" required>
             </div>
+
 
             <!-- Submit Button -->
             <button type="submit">Send Campaign</button>
