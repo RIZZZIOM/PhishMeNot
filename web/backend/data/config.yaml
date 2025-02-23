@@ -1,4 +1,19 @@
 smtp:
-  default_server: "smtp.gmail.com"
-  default_port: 587
-  default_encryption: "TLS"
+  default:
+    server: "smtp.gmail.com"  
+    port: 587  
+    encryption: "TLS"
+  user:
+    server:
+    port:
+    encryption:
+
+port_forwarding:
+  default:
+    enabled: false  # Default
+    service: "ngrok"  
+    url: ""
+  user:
+    enabled:
+    service:
+    url: 
