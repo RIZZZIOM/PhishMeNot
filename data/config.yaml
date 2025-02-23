@@ -1,0 +1,4 @@
+smtp:
+  default_server: "smtp.gmail.com"
+  default_port: 587
+  default_encryption: "TLS"
