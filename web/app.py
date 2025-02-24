@@ -279,4 +279,75 @@ def get_latest_campaign():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# 📌 API: Get total campaigns & credentials count
+@app.route("/api/results/overview", methods=["GET"])
+def get_results_overview():
+    try:
+        # Load logs.json
+        if os.path.exists(LOG_FILE):
+            with open(LOG_FILE, "r") as file:
+                logs_data = json.load(file)
+        else:
+            logs_data = []
+
+        # Load captured.json
+        if os.path.exists(CAPTURED_LOG_FILE):
+            with open(CAPTURED_LOG_FILE, "r") as file:
+                captured_data = json.load(file)
+        else:
+            captured_data = []
+
+        total_campaigns = len(logs_data)
+        total_credentials = sum(len(campaign.get("captured_credentials", [])) for campaign in captured_data)
+
+        return jsonify({"total_campaigns": total_campaigns, "total_credentials": total_credentials})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# 📌 API: Get detailed campaign results
+@app.route("/api/results/campaigns", methods=["GET"])
+def get_campaign_results():
+    try:
+        # Load logs.json
+        if os.path.exists(LOG_FILE):
+            with open(LOG_FILE, "r") as file:
+                logs_data = json.load(file)
+        else:
+            logs_data = []
+
+        # Load captured.json
+        if os.path.exists(CAPTURED_LOG_FILE):
+            with open(CAPTURED_LOG_FILE, "r") as file:
+                captured_data = json.load(file)
+        else:
+            captured_data = []
+
+        # Organize data for frontend
+        results = []
+        for log in logs_data:
+            campaign_name = log.get("campaign_name", "Unknown Campaign")
+            timestamp = log.get("timestamp", "N/A")
+            sender_email = log.get("sender_email", "N/A")
+
+            # Find captured credentials for the campaign
+            captured_info = next((c for c in captured_data if c.get("campaign_name") == campaign_name), {})
+            captured_entries = captured_info.get("captured_credentials", [])
+
+            for entry in captured_entries:
+                results.append({
+                    "campaign_name": campaign_name,
+                    "timestamp": timestamp,
+                    "sender_email": sender_email,
+                    "target_email": entry.get("target_email", "N/A"),
+                    "username": entry.get("email", "N/A"),
+                    "password": entry.get("password", "N/A"),
+                })
+
+        return jsonify(results)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 app.run(host='0.0.0.0', debug=True)
