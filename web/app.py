@@ -279,73 +279,73 @@ def get_latest_campaign():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# 📌 API: Get total campaigns & credentials count
+# 📌 API to fetch results overview (total campaigns & credentials captured)
 @app.route("/api/results/overview", methods=["GET"])
 def get_results_overview():
     try:
-        # Load logs.json
+        # Load logs
         if os.path.exists(LOG_FILE):
-            with open(LOG_FILE, "r") as file:
-                logs_data = json.load(file)
+            with open(LOG_FILE, "r") as f:
+                campaigns = json.load(f)
         else:
-            logs_data = []
+            campaigns = []
 
-        # Load captured.json
+        # Load captured credentials
         if os.path.exists(CAPTURED_LOG_FILE):
-            with open(CAPTURED_LOG_FILE, "r") as file:
-                captured_data = json.load(file)
+            with open(CAPTURED_LOG_FILE, "r") as f:
+                credentials = json.load(f)
         else:
-            captured_data = []
+            credentials = []
 
-        total_campaigns = len(logs_data)
-        total_credentials = sum(len(campaign.get("captured_credentials", [])) for campaign in captured_data)
-
-        return jsonify({"total_campaigns": total_campaigns, "total_credentials": total_credentials})
+        return jsonify({
+            "total_campaigns": len(campaigns),
+            "total_credentials": len(credentials)
+        })
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
-# 📌 API: Get detailed campaign results
 @app.route("/api/results/campaigns", methods=["GET"])
 def get_campaign_results():
     try:
-        # Load logs.json
+        # Load logs
         if os.path.exists(LOG_FILE):
-            with open(LOG_FILE, "r") as file:
-                logs_data = json.load(file)
+            with open(LOG_FILE, "r") as f:
+                campaign_logs = json.load(f)
         else:
-            logs_data = []
+            campaign_logs = []
 
-        # Load captured.json
+        # Load captured credentials
         if os.path.exists(CAPTURED_LOG_FILE):
-            with open(CAPTURED_LOG_FILE, "r") as file:
-                captured_data = json.load(file)
+            with open(CAPTURED_LOG_FILE, "r") as f:
+                captured_credentials = json.load(f)
         else:
-            captured_data = []
+            captured_credentials = []
 
-        # Organize data for frontend
-        results = []
-        for log in logs_data:
-            campaign_name = log.get("campaign_name", "Unknown Campaign")
-            timestamp = log.get("timestamp", "N/A")
-            sender_email = log.get("sender_email", "N/A")
+        # Merge campaigns with captured credentials
+        campaign_results = []
+        for campaign in campaign_logs:
+            template_name = campaign.get("template")  # Switch campaign name with template
+            sender_email = campaign.get("senderEmail")
+            timestamp = campaign.get("timestamp")
 
-            # Find captured credentials for the campaign
-            captured_info = next((c for c in captured_data if c.get("campaign_name") == campaign_name), {})
-            captured_entries = captured_info.get("captured_credentials", [])
+            # Find credentials associated with this campaign
+            matching_credentials = [
+                cred for cred in captured_credentials if cred["campaign"] == campaign.get("campaignName")
+            ]
 
-            for entry in captured_entries:
-                results.append({
-                    "campaign_name": campaign_name,
+            for cred in matching_credentials:
+                campaign_results.append({
+                    "template_name": template_name,  # Use template name instead
                     "timestamp": timestamp,
                     "sender_email": sender_email,
-                    "target_email": entry.get("target_email", "N/A"),
-                    "username": entry.get("email", "N/A"),
-                    "password": entry.get("password", "N/A"),
+                    "target_email": cred["email"],
+                    "username": cred["email"],  # Assuming username is the email
+                    "password": cred["password"]
                 })
 
-        return jsonify(results)
+        return jsonify(campaign_results)
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

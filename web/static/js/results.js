@@ -21,11 +21,33 @@ function fetchCampaignResults() {
         .then(data => {
             const table = document.querySelector(".campaign-results table");
 
+            // ✅ Clear previous table content
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Template Name</th>
+                        <th>Timestamp</th>
+                        <th>Email Sender</th>
+                        <th>Target Email</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+
+            const tbody = table.querySelector("tbody");
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No data available</td></tr>`;
+                return;
+            }
+
             data.forEach(entry => {
                 const row = document.createElement("tr");
 
                 row.innerHTML = `
-                    <td>${entry.campaign_name}</td>
+                    <td>${entry.template_name}</td>
                     <td>${entry.timestamp}</td>
                     <td>${entry.sender_email}</td>
                     <td>${entry.target_email}</td>
@@ -33,7 +55,7 @@ function fetchCampaignResults() {
                     <td>${entry.password}</td>
                 `;
 
-                table.appendChild(row);
+                tbody.appendChild(row);
             });
         })
         .catch(error => console.error("Error fetching campaign results:", error));
