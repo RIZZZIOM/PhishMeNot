@@ -1,11 +1,9 @@
 function createCampaign() {
-    alert("Redirecting to 'Create New Campaign' page...");
-    // Add redirection logic here
+    window.location.href = "/campaigns"
 }
 
 function viewResults() {
-    alert("Redirecting to 'View Results' page...");
-    // Add redirection logic here
+    window.location.href = "/results"
 }
 
 function viewTemplates() {
