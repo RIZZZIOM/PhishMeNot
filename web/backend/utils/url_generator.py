@@ -1,1 +1,0 @@
-# phishing url generation logic
