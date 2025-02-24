@@ -3,7 +3,8 @@ import os
 import smtplib
 import ssl
 from flask import Flask, render_template, jsonify, request, send_from_directory, url_for, abort
-from config import get_smtp_settings, get_port_forwarding_settings, save_user_settings
+from config import get_smtp_settings, save_user_settings
+# from config import get_port_forwarding_settings
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from datetime import datetime
 from email.mime.text import MIMEText
@@ -66,9 +67,9 @@ def get_smtp():
     return jsonify(get_smtp_settings())
 
 # API to get current Port Forwarding settings (User settings take priority)
-@app.route("/api/port-forwarding-settings", methods=["GET"])
-def get_port_forwarding():
-    return jsonify(get_port_forwarding_settings())
+# @app.route("/api/port-forwarding-settings", methods=["GET"])
+# def get_port_forwarding():
+#     return jsonify(get_port_forwarding_settings())
 
 # API to save user-defined settings (Stored inside `user` section of `config.yaml`)
 @app.route("/api/settings", methods=["POST"])

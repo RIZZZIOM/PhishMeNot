@@ -10,14 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error loading SMTP settings:", error));
 
     // Load Port Forwarding settings (User settings take priority)
-    fetch("/api/port-forwarding-settings")
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("portForwardingEnabled").checked = data.enabled || false;
-            document.getElementById("portForwardingService").value = data.service || "ngrok";
-            document.getElementById("portForwardingUrl").value = data.url || "";
-        })
-        .catch(error => console.error("Error loading Port Forwarding settings:", error));
+    // fetch("/api/port-forwarding-settings")
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         document.getElementById("portForwardingEnabled").checked = data.enabled || false;
+    //         document.getElementById("portForwardingService").value = data.service || "ngrok";
+    //         document.getElementById("portForwardingUrl").value = data.url || "";
+    //     })
+    //     .catch(error => console.error("Error loading Port Forwarding settings:", error));
 });
 
 // Save new settings when "Save Changes" button is clicked
@@ -29,17 +29,17 @@ document.getElementById("saveSettings").addEventListener("click", function () {
     const smtpPassword = document.getElementById("smtpPassword") ? document.getElementById("smtpPassword").value : "";
     const smtpEncryption = document.getElementById("smtpEncryption").value;
 
-    const portForwardingEnabled = document.getElementById("portForwardingEnabled").checked;
-    const portForwardingService = document.getElementById("portForwardingService").value;
-    const portForwardingUrl = document.getElementById("portForwardingUrl").value;
+    // const portForwardingEnabled = document.getElementById("portForwardingEnabled").checked;
+    // const portForwardingService = document.getElementById("portForwardingService").value;
+    // const portForwardingUrl = document.getElementById("portForwardingUrl").value;
 
-    const enableMasking = document.getElementById("enableMasking") ? document.getElementById("enableMasking").checked : false;
-    const maskingDomain = document.getElementById("maskingDomain") ? document.getElementById("maskingDomain").value : "";
+    // const enableMasking = document.getElementById("enableMasking") ? document.getElementById("enableMasking").checked : false;
+    // const maskingDomain = document.getElementById("maskingDomain") ? document.getElementById("maskingDomain").value : "";
 
     // Log values for debugging
     console.log("SMTP Settings:", { smtpServer, smtpPort, smtpUsername, smtpPassword, smtpEncryption });
-    console.log("Port Forwarding:", { portForwardingEnabled, portForwardingService, portForwardingUrl });
-    console.log("Email Masking:", { enableMasking, maskingDomain });
+    // console.log("Port Forwarding:", { portForwardingEnabled, portForwardingService, portForwardingUrl });
+    // console.log("Email Masking:", { enableMasking, maskingDomain });
 
     // Construct API request payload
     const updatedSettings = {
@@ -48,17 +48,17 @@ document.getElementById("saveSettings").addEventListener("click", function () {
             port: smtpPort,
             encryption: smtpEncryption
         },
-        port_forwarding: {
-            enabled: portForwardingEnabled,
-            service: portForwardingService,
-            url: portForwardingUrl
-        }
+        // port_forwarding: {
+        //     enabled: portForwardingEnabled,
+        //     service: portForwardingService,
+        //     url: portForwardingUrl
+        // }
     };
 
     // Only add optional values if they exist
     if (smtpUsername) updatedSettings.smtp.username = smtpUsername;
     if (smtpPassword) updatedSettings.smtp.password = smtpPassword;
-    if (enableMasking !== undefined) updatedSettings.email_masking = { enabled: enableMasking, domain: maskingDomain };
+    // if (enableMasking !== undefined) updatedSettings.email_masking = { enabled: enableMasking, domain: maskingDomain };
 
     // Send API request to save settings
     fetch("/api/settings", {

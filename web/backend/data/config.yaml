@@ -8,12 +8,12 @@ smtp:
     port:
     encryption:
 
-port_forwarding:
-  default:
-    enabled: false  # Default
-    service: "ngrok"  
-    url: ""
-  user:
-    enabled:
-    service:
-    url: 
+# port_forwarding:
+#   default:
+#     enabled: false  # Default
+#     service: "ngrok"  
+#     url: ""
+#   user:
+#     enabled:
+#     service:
+#     url: 
