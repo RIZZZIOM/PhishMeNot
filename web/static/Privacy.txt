@@ -1,0 +1,40 @@
+Privacy Policy
+==============
+
+Effective Date: March 2025
+
+Introduction
+------------
+PHISH ME NOT values user privacy and data security. This Privacy Policy outlines our commitment to ensuring that no personal data is collected, transmitted, or stored by us. All data remains under the control of the user.
+
+No Data Collection
+------------------
+PHISH ME NOT does not collect, transmit, or share any data. The platform operates entirely on the user's local system, and all information remains within the user's environment.
+
+Locally Stored Data
+-------------------
+Any data generated or stored while using PHISH ME NOT is **kept solely on the user’s system**. This includes:
+- Campaign Details: Stored locally for campaign management.
+- Captured Credentials: If enabled, credentials entered on phishing pages are saved within the local system.
+- Logs & Reports: Any logs or results generated are stored only on the user’s device.
+
+No Third-Party Access
+---------------------
+- PHISH ME NOT does not send or sync any data to remote servers.
+- There is no backend service collecting user information.
+- Users have full control over their locally stored files and logs.
+
+User Responsibility
+-------------------
+As PHISH ME NOT operates entirely within the user’s system:
+- Users are responsible for managing and securing their local data.
+- Any collected credentials or logs remain under the sole ownership of the user.
+- Users should not misuse PHISH ME NOT for unauthorized or illegal activities.
+
+Changes to This Policy
+----------------------
+Since PHISH ME NOT does not collect any data, updates to this policy will only reflect changes in software functionality. Users will be informed of any modifications.
+
+Contact
+-------
+For any questions regarding this policy, please reach out to me!

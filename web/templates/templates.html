@@ -72,7 +72,7 @@
     <!-- Footer -->
     <footer>
         <p>© 2025 rizzziom</p>
-        <a href="#">Privacy Policy</a> | <a href="#">Documentation</a>
+        <a href="{{ url_for('static', filename='privacy.txt') }}" download>Privacy Policy</a> | <a href="{{ url_for('docPage') }}">Documentation</a>
     </footer>
 
     <script src="{{ url_for('static', filename='js/templates.js') }}"></script>
