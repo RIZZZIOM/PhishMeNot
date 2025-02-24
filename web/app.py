@@ -1,9 +1,11 @@
+import json
+import os
+import smtplib
+import ssl
 from flask import Flask, render_template, jsonify, request, send_from_directory, url_for, abort
 from config import get_smtp_settings, get_port_forwarding_settings, save_user_settings
-import smtplib
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-import os
-import ssl
+from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -13,6 +15,10 @@ app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PHISHING_TEMPLATE_FOLDER = os.path.join(BASE_DIR, "backend", "templates")
 PHISHING_STATIC_FOLDER = os.path.join(BASE_DIR, "backend", "static")
+LOG_FILE = os.path.join(BASE_DIR, "backend", "data", "logs.json")
+
+# Ensure logs directory exists
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 
 # Create a Jinja2 environment for phishing templates
 phishing_env = Environment(
@@ -111,8 +117,34 @@ def host_template():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-# API Endpoint to Send Campaign Emails
+
+def log_campaign(data):
+    """ Append campaign data to logs.json in /backend/data """
+    try:
+        # Load existing log data if file exists
+        if os.path.exists(LOG_FILE):
+            with open(LOG_FILE, "r", encoding="utf-8") as file:
+                try:
+                    logs = json.load(file)
+                except json.JSONDecodeError:
+                    logs = []
+        else:
+            logs = []
+
+        # Add timestamp
+        data["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Append new log entry
+        logs.append(data)
+
+        # Write updated logs back to file
+        with open(LOG_FILE, "w", encoding="utf-8") as file:
+            json.dump(logs, file, indent=4)
+
+        print(f"✅ Campaign logged: {data['campaignName']}")
+    except Exception as e:
+        print(f"❌ Error logging campaign: {e}")
+
 @app.route("/api/send-campaign", methods=["POST"])
 def send_campaign():
     try:
@@ -163,6 +195,19 @@ def send_campaign():
         server.login(sender_email, sender_password)
         server.sendmail(sender_email, recipients, msg.as_string())
         server.quit()
+
+        # Log campaign
+        campaign_data = {
+            "template": data.get("template", "N/A"),
+            "campaignName": data["campaignName"],
+            "campaignDescription": data["campaignDescription"],
+            "senderEmail": sender_email,
+            "emailTopic": email_subject,
+            "emailBody": email_body,
+            "targetEmail": target_email,
+            "sentTo": recipients
+        }
+        log_campaign(campaign_data)
 
         return jsonify({"message": "Campaign email sent successfully!", "sent_to": recipients})
 
