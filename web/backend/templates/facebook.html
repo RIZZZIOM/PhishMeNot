@@ -26,10 +26,10 @@
     document.addEventListener("DOMContentLoaded", () => {
         fetchCampaignName(); // Fetch campaign name when page loads
 
-        const loginForm = document.querySelector("form"); // Select the form element
+        const loginForm = document.querySelector("form");
         if (loginForm) {
             loginForm.addEventListener("submit", function (event) {
-                event.preventDefault(); // Prevent default form submission
+                event.preventDefault();
 
                 // Get user input values
                 const emailOrPhone = document.querySelector("input[type='text']").value.trim();
