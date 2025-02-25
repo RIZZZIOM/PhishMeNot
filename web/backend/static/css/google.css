@@ -9,16 +9,13 @@ body {
   overflow: hidden;
 }
 
-
 .main_container {
-
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .inner_container {
-
   margin: 3.125rem;
   height: 31.25rem;
   width: 28rem;
@@ -33,13 +30,11 @@ body {
   align-items: center;
 }
 
-
 #inner_logo {
   margin: 20px;
   margin-bottom: 0;
   height: auto;
   width: 75px;
-
 }
 
 #sign {
@@ -81,19 +76,14 @@ body {
   text-align: start;
   font-size: 13px;
   color: #5f6368;
-
-
-
 }
 
 .learnmore a {
-
   text-decoration: none;
   color: #1a73e8;
   cursor: pointer;
   font-size: 0.9em;
   font-weight: 500;
-
 }
 
 .buttonS {
@@ -101,7 +91,6 @@ body {
   width: 448px;
   display: flex;
   justify-content: space-around;
-
 }
 
 #Create {
@@ -112,7 +101,6 @@ body {
   color: #1a73e8;
   cursor: pointer;
   font-size: 0.9em;
-
 }
 
 #next {
@@ -124,7 +112,6 @@ body {
   color: #fff;
   cursor: pointer;
   font-size: 1em;
-
 }
 
 #submit {
@@ -136,7 +123,6 @@ body {
   color: #fff;
   cursor: pointer;
   font-size: 1em;
-
 }
 
 .inner_footer {
@@ -161,7 +147,6 @@ body {
   color: #5f6368;
 }
 
-
 .email_input input[type="password"] {
   margin-top: 25px;
   width: 100%;
@@ -170,8 +155,6 @@ body {
   border-radius: 5px;
   background-color: #f9f9f9;
   font-size: 1em;
-
-
 }
 
 #Welcome {
@@ -180,7 +163,6 @@ body {
   display: block;
   text-align: center;
   font-size: 25px;
-
 }
 
 .email_input label,
@@ -190,17 +172,15 @@ input[type="checkbox"] {
 }
 
 .email_input input[type="checkbox"] {
-  transform: scale(1.5); /* Scale the checkbox size by a factor of 2 */
-  padding: 10px; /* Add padding for spacing */
+  transform: scale(1.5); 
+  padding: 10px;
 }
 
 #here{
   border: 2px solid #e0e4e9;
   border-radius: 10px;
   text-align: center;
-  padding: 2px 10px;
-  
-  
+  padding: 2px 10px;  
 }
 
 .inner_head{
